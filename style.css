@@ -1,0 +1,216 @@
+* {
+    box-sizing: border-box !important;
+    /* border: 1px solid blue; */
+    background-color: transparent;
+}
+
+header {
+    padding: 0.5em;
+    height: 100px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    background-color: slategrey;
+}
+
+header h1 {
+    font-size: 2.25em;
+    font-weight: bold;
+    padding: 20px 0 16px 0;
+}
+
+header span {
+    font-size: 16px;
+    font-weight: normal;
+    padding: 0;
+    text-transform: capitalize;
+}
+
+main {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: repeat(2, auto);
+}
+
+main > * {
+    padding: 0.5em;
+}
+  
+#search {
+    /* border: 1px solid red !important; */
+    /* grid-column: 0 / 1; */
+    
+}
+
+#history {
+    text-transform: capitalize;
+    padding: 0.5em 0;
+}
+
+#display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: fit-content(6em) fit-content(6em);
+    /* border: 1px solid cyan !important; */
+    grid-column:  span 3;
+    grid-row: 0 / 2;
+    row-gap: 0.5em;
+    text-shadow: black 0 0 3px;
+}
+
+#future {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column: span 5;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+}
+
+#future div {
+    /* border: 1px solid magenta; */
+    /* grid-column: span 1; */
+    grid-row: 1 / 2;
+    border-radius: 5px;
+    background-color: hsl(207, 44%, 49%);
+    color: white;
+    padding: 0.5em;
+}
+
+#display > div:first-child {
+    position: relative;
+    grid-column:  span 5;
+    background-color: hsl(207, 44%, 49%);
+    padding: 0.5em;
+    color: white;
+} 
+
+#display div i {
+    display: block;
+    font-size: 5em;
+    text-align: center;
+}
+
+#history > div {
+    padding: 0.25em 0;
+    line-height: 1.25em;
+    padding: 0.5em;
+    background-color: transparent;
+}
+
+#history > div:not(:last-child) {
+    border-bottom: 1px solid slategrey;
+}
+
+#history > div:hover {
+    background-color: slategrey;
+    color: white;
+    transition: all 0.5s;
+}
+
+form input[type="text"], form button {
+    font-size: 16px;
+    padding: 0.25em 0.5em;
+    outline: none;
+}
+
+form input[type="text"] {
+    border: 1px solid slategray;
+}
+
+form button {
+    border-radius: 5px;
+    background-color: slategray;
+    border: none;
+    color: white;
+}
+
+.fas {
+    text-shadow:hsl(207, 44%, 10%) 0 0 15px;
+}
+
+.fa-circle {
+    color: hsl(51, 100%, 50%);
+    text-shadow:hsl(41, 100%, 50%) 0 0 15px;
+} 
+
+#display > div:first-child .fa-circle.night {
+    color: white;
+    text-shadow:white 0 0 15px;
+    /* mix-blend-mode: screen; */
+}
+
+#display > div:first-child span.uvi, #display > div:first-child span.ws {
+    padding: 3px;
+    border-radius: 3px;
+    margin: 0.5em;
+}
+
+#display > div:first-child span.uvi {
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#display > div:first-child span.ws {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.fa-cloud {
+    color: whitesmoke;
+    text-shadow:white 0 0 15px;
+}
+
+.fa-umbrella {
+    color: hsl(0, 70%, 50%);
+}
+
+#modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #00000088;
+    overflow: auto;
+    display: none;
+}
+
+.modalBody {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    z-index: 2;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    background-color: white;
+}
+
+.modalX {
+    z-index: 3;
+    float: right;
+    color: slategray;
+    width: 1.25em;
+    height: 1.25em;
+    margin: auto;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.15;
+}
+
+.modalX:hover {
+    z-index: 3;
+    float: right;
+    color: slategray;
+    border-radius: 50%;
+    background-color: hsl(0, 50%, 50%);
+    color: white;
+    transition: all;
+}
+
+.modalX:before {
+    content: "\00D7";
+}
