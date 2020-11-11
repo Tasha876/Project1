@@ -1,4 +1,4 @@
-# Weather DashBoard
+# Weather Dashboard
 A simple app that gives a five day forecast with more detailed current weather.
 
 ## Table of Contents
@@ -19,9 +19,9 @@ I used font-awesome icons instead of the ones that come with the API because I j
 
 ### Summary of Functionality
 
-* You can view weather information for the current day in a popular city of your choosing*. This information includes the UV index, current temperature, wind speed, humidity, and weahter conditions.
-* You can view a weather forecast for the same city. This information includes current temperature, humidity, and weather conditions
-* The background color for the current day adjusts depending on the time of day in that city
+* You can view weather information for the current day in a popular city of your choosing. This information includes the UV index, current temperature, wind speed, humidity, and weahter conditions.
+* You can view a weather forecast for the same city. This information includes current temperature, humidity, and weather conditions.
+* The background color for the current day adjusts depending on the time of day in that city.
 
 <a name="visuals"></a>
 ## 2. Visuals
@@ -38,7 +38,7 @@ Should you find an issue with this webpage, please create a [new issue](https://
 
 <a name="next_steps"></a>
 ## 5. Next steps
-This is a very basic planner and several features could be added, some of these include (but are in no way limited to):
+Several features could be added, some of them are as follows:
 - better UI
 - use of an API that gives less preference to US cities (the current one shows Melbourne in the US instead of Australia etc.)
 
