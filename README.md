@@ -41,6 +41,7 @@ Should you find an issue with this webpage, please create a [new issue](https://
 Several features could be added, some of them are as follows:
 - better UI
 - use of an API that gives less preference to US cities (the current one shows Melbourne in the US instead of Australia etc.)
+- use the users current city instead of always using "Toronto" for the default city.
 
 <a name="acknowledge"></a>
 ## 6. Authors and Acknowledgement
