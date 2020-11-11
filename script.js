@@ -22,7 +22,6 @@ function getData(city) {
     var msg = "";
     var requestUrl= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=18e5d8f1eb5703b7275f0749950ba7d1&units=metric";
     // pass the url into the fetch function
-    console.log(requestUrl);
     fetch(requestUrl)
     // once loaded, convert response to JSON
     .then(function(response) {
@@ -48,7 +47,6 @@ function getData(city) {
         function getSkyColor() {
     
             var daylightTime = (Math.abs((now - sunrise) % (24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)); // total daylightTime over hours in day
-            console.log(data);
             var brightness = 0.5;
             // I really doubt that this is how you actually ge the approx brightness of a city, but I tried :)
             var calc = 0.25 - (daylightTime - 0.5) ** 2;
@@ -57,10 +55,8 @@ function getData(city) {
               } else {
                 brightness = 0.5 - Math.sqrt(calc);
               }
-            console.log(sunrise % (24 * 60 * 60 * 1000), sunset % (24 * 60 * 60 * 1000), now % (24 * 60 * 60 * 1000), calc, daylightTime);
             var color = "hsl(207, 44%, " + (brightness * 80 + 10) + "%)"; // max/min brightness is 90/10%
             document.querySelector("#display div").style.backgroundColor = color;
-            console.log(brightness);
         }
         
 
@@ -86,7 +82,6 @@ function getData(city) {
         .then(function(data) { 
             addHistoryItem(city);
             getWeather(data);
-            console.log(data);
         })
 
 
@@ -121,11 +116,11 @@ function storeHistoryItems() {
 }
 
 function init(){
-    var city = "";
+    var city = "Toronto";
     var storedItems = localStorage.getItem("history");
     if (storedItems) {
         historyItems = JSON.parse(storedItems);
-        (historyItems[historyItems.length - 1] !== undefined)? city = historyItems[historyItems.length - 1] : city = "Toronto";
+        city = historyItems[historyItems.length - 1];
     } renderHistoryItems();
     getData(city);
 }
@@ -141,7 +136,7 @@ function renderHistoryItems() {
     } storeHistoryItems();
 }
 
-var render = function(event) {
+function render(event) {
     if (event.type === "submit") {
         event.preventDefault();
         getData(searchItem.value);
