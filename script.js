@@ -95,7 +95,8 @@ function getData(city) {
     })
     .catch(function(error){
         var p = document.createElement("p");
-        p.innerText = error;
+        if (city === "") msg = "Enter a city";
+        p.innerText = msg;
         modalBody.appendChild(p);
         modal.style.display = "block";
 
