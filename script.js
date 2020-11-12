@@ -9,8 +9,10 @@ var historyItems = [];
 var weatherDay = document.querySelectorAll("#display div");
 var date = new Date();
 
+// initializes site with data in local storage, sets Toronto as default city
 init();
 
+// just adds a custom title with the city name
 function setCustomTitle(city) {
     var customTitle = "Viewing " + city + " | Weather Dashboard";
     var customSpan = "Now viewing " + city; 
@@ -34,6 +36,7 @@ function getData(city) {
     })
     //once that's loaded, call it data and do stuff
     .then(function(data) {  
+        var date = new Date();
 
         var longitude = data.coord.lon;
         var latitude = data.coord.lat;
@@ -44,6 +47,7 @@ function getData(city) {
         var sunrise = data.sys.sunrise * 1000; // mult by 1000 to get ms
         var sunset = data.sys.sunset * 1000;
     
+        // gets the sky color :)
         function getSkyColor() {
     
             var daylightTime = (Math.abs((now - sunrise) % (24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)); // total daylightTime over hours in day
@@ -59,15 +63,18 @@ function getData(city) {
             document.querySelector("#display div").style.backgroundColor = color;
         }
         
-
         getSkyColor();
 
+        // gets all variables to show
         var temp = Math.round(data.main.temp);
         var humidity = data.main.humidity + "%";
         var desc = data.weather[0].main;
+
+        // add the variables and the icons to the HTML
         weatherDay[0].innerHTML = days[date.getDay()] + " " + date.toLocaleDateString() + "<br/>" + temp + "&deg;C \
         <br>" + getWeatherIcon(desc, sunrise < now && now < sunset) + "<br> humidity: " + humidity;
 
+        // increases day by 1
         date.setDate(date.getDate() + 1).day;
 
 
@@ -97,6 +104,7 @@ function getData(city) {
         });
 }
 
+// just adds the city to the history panel
 function addHistoryItem(city) {
     city = toLowerCase(city);
     setCustomTitle(city);
@@ -111,10 +119,12 @@ function addHistoryItem(city) {
     }
 }
 
+// stores history items to local storage
 function storeHistoryItems() {
     localStorage.setItem("history", JSON.stringify(historyItems));
 }
 
+// initializes the site with whats in local storage, Toronto is the default city for now
 function init(){
     var city = "Toronto";
     var storedItems = localStorage.getItem("history");
@@ -125,6 +135,7 @@ function init(){
     getData(city);
 }
 
+// Creates a history item on the site in the history panel
 function renderHistoryItems() {
     searchHistory.innerHTML = "";
     for (var i = historyItems.length - 1; i >= 0 && i >= historyItems.length - 8; i--) {
@@ -136,6 +147,7 @@ function renderHistoryItems() {
     } storeHistoryItems();
 }
 
+// renders the weather according to what the user searches/clicks on
 function render(event) {
     if (event.type === "submit") {
         event.preventDefault();
@@ -146,6 +158,8 @@ function render(event) {
     searchItem.value = "";
 };
 
+
+// just gets the weather icon according to the description in the JSON
 function getWeatherIcon(desc, isDaylight) {
     var image = "";
     switch(desc) {
@@ -176,6 +190,7 @@ function getWeatherIcon(desc, isDaylight) {
     } return image;
 }
 
+// gets the color associated with each UV index
 function getUviColor(uvi) {
     color = "";
     switch(true) {
@@ -196,12 +211,15 @@ function getUviColor(uvi) {
     } return color;
 }
 
+// gets the weather forecast and displays it on the page
 function getWeather(data) {
-    date = new Date();
-    days = ["Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat"]
+    var date = new Date();
+    var days = ["Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat"]
     for (var i = 0; i < 6; i++) {
+        // for the first day (i.e. current day)
         if (i === 0) {
 
+            // creates span with UV index
             var spanUvi = document.createElement("span");
             spanUvi.classList.add("uvi");
             var uvi = data.daily[0].uvi;
@@ -211,6 +229,7 @@ function getWeather(data) {
 
             weatherDay[0].appendChild(spanUvi);
 
+            // creates span with wind speed info
             var spanWS = document.createElement("span");
             spanWS.classList.add("ws");
             var WS = data.daily[0].wind_speed;
@@ -218,22 +237,29 @@ function getWeather(data) {
 
             weatherDay[0].appendChild(spanWS);
 
+        // for every other day (forecast)
         } else {
-        weatherDay[i].innerHTML = "";
-        date.setDate(date.getDate() + 1).day;
-        var spanOther  = document.createElement("span");
-        var temp = Math.round(data.daily[i].temp.max);
-        var humidity = data.daily[i].humidity + "%";
-        var desc = data.daily[i].weather[0].main;
-        spanOther.innerHTML = days[date.getDay()] + " " + date.toLocaleDateString() + "<br/>" + temp + "&deg;C \
-        <br>" + getWeatherIcon(desc, true) + "<br> humidity: " + humidity;
-        weatherDay[i].appendChild(spanOther);
+            weatherDay[i].innerHTML = "";
+            date.setDate(date.getDate() + 1).day;
+
+            //gets weather info
+            var spanOther  = document.createElement("span");
+            var temp = Math.round(data.daily[i].temp.max);
+            var humidity = data.daily[i].humidity + "%";
+            var desc = data.daily[i].weather[0].main;
+            
+            // displays weather info
+            spanOther.innerHTML = days[date.getDay()] + " " + date.toLocaleDateString() + "<br/>" + temp + "&deg;C \
+            <br>" + getWeatherIcon(desc, true) + "<br> humidity: " + humidity;
+            weatherDay[i].appendChild(spanOther);
         }
     }
 ;}
 
+// makes sure everything is rendered when the user submits form
 searchForm.addEventListener("submit", render, false);
 
+// just makes sure that the cities are all stored in the same case (picked lower case so it would work nicely with text-transform in the CSS)
 function toLowerCase(str) {
     return str.toLowerCase()
 }
